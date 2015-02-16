@@ -1,0 +1,13 @@
+# Site settings
+name: Slothkrew
+email: sloths@slothkrew.com
+description: > # this means to ignore newlines until "baseurl:"
+  Live slow, code whenever. Infosec, technology, rants and raves.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "https://slothkrew.com" # the base hostname & protocol for your site
+twitter_username: jekyllrb
+github_username:  Slothkrew
+
+# Build settings
+markdown: kramdown
+highlighter: pygments
