@@ -62,6 +62,14 @@ We enforce encryption for both c2s- and s2s-connections. Yes, we are aware that
 there is the potential of servers not being able to communicate with ours but
 it doesn't outweigh the definite security gain everybody gets out of it.
 
+The SHA-1-fingerprint of the certificate is:
+<blockquote>0A:A0:02:B9:83:FB:35:A6:23:81:6E:AC:54:23:CD:60:FE:D2:96:3B</blockquote>
+
+In addition to mandatory encryption we switched away from Prosody's default
+settings but instead implemented the recommendations of the
+[BetterCrypto](https://bettercrypto.org)-project in order to further increase
+connection security.
+
 Prosody's default is to store passwords in plaintext, which is one of the
 biggest no-no's ever. We don't want to land
 [here](http://plaintextoffenders.com/) one day. Or your passwords to land on
