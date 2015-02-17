@@ -18,9 +18,20 @@ Yes, we are aware that we are locking out some people by being that
 restrictive. But how many people / clients / operating systems we are actually
 locking out? Definitely Windows XP, but we don't think that we cater towards an
 audience that relies on Windows XP as their daily driver. Let's take a look at
-the client-support for our settings!
+the client-support for our settings as well as the state of
+serverside-encryption out there on the Internet!
 
-The [documentation] for the module that provides support for hashed passwords
+
+
+One of the uglier default settings Prosody has is the default storage for
+passwords - in plain text on the hard disk. Ehrm. No. Plain (See what I did
+there?) and simple 'No.'. We want at least hashed passwords, and luckily that's
+easily doable with Prosody. The
+[documentation](http://prosody.im/doc/plain_or_hashed) for the module that
+provides support for hashed passwords goes into quite a bit of length in order
+to .. it feels like discouraging you from hashing your passwords, but I assume
+at the time of the writing it was a problematic topic due to the lack of
+client-support.
 
 
 Let's take a quick look at the state of support for SCRAM-SHA1 in popular clients:
