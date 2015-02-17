@@ -21,6 +21,28 @@ audience that relies on Windows XP as their daily driver. Let's take a look at
 the client-support for our settings as well as the state of
 serverside-encryption out there on the Internet!
 
+To measure the availability of encryption I run the test on [xmpp.net](https://xmpp.net) on several of the bigger (mostly) European XMPP-servers. While this is of course not scientifically valid it gives a overview over the general situation.
+
+* draugr.de (c2s: **Yes**, s2s: **Yes**, grade: A-)
+* dukgo.com (c2s: **Yes**, s2s: **Yes**, grade: A)
+* is-a-furry.org
+* jabberafrica.org
+* jabber.ccc.de
+* jabber.org
+* jabber.no
+* jabber.se
+* is-the-shit.com
+* prosody.de
+* mail.de
+* alpha-labs.net
+* default.rs
+* freamware.net
+* hot-chilli.eu
+* jabber-hosting.de
+* jabber.cz
+* linuxlovers.at
+* neko.im
+
 So, how is the state of support for TLS 1.2 amongst the more popular clients?
 
 * Pidgin supports it since around the end of 2013 (see [here](https://developer.pidgin.im/ticket/15744), I can't seem to find an actual release note)and actually prefers it since October 2014 (see [here](https://developer.pidgin.im/wiki/ChangeLog))
@@ -29,7 +51,7 @@ So, how is the state of support for TLS 1.2 amongst the more popular clients?
 * Gajim supports it since around November 2013 (see [here](https://python-nbxmpp.gajim.org/ticket/8))
 * Psi seems to support it, but I could not find out any specifics except some problems related to TLS 1.2 from back in January 2014
 * mcabber seems to support it, but the situation is the same as with Psi
-* Empath .. no damn idea. The documentation is incredibly bad. The only thing that includes hints that TLS 1.2 is supported is from a [blog](https://blog.thijsalkema.de/me/blog//blog/2013/09/02/the-state-of-tls-on-xmpp-3/)
+* Empath .. no damn idea. The documentation is incredibly bad. The only thing that includes hints that TLS 1.2 is supported is a [blog-entry](https://blog.thijsalkema.de/me/blog//blog/2013/09/02/the-state-of-tls-on-xmpp-3/)
 
 One of the uglier default settings Prosody has is the default storage for
 passwords - in plain text on the hard disk. Ehrm. No. Plain (See what I did
