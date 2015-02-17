@@ -21,7 +21,15 @@ audience that relies on Windows XP as their daily driver. Let's take a look at
 the client-support for our settings as well as the state of
 serverside-encryption out there on the Internet!
 
+So, how is the state of support for TLS 1.2 amongst the more popular clients?
 
+* Pidgin supports it since around the end of 2013 (see [here](https://developer.pidgin.im/ticket/15744), I can't seem to find an actual release note)and actually prefers it since October 2014 (see [here](https://developer.pidgin.im/wiki/ChangeLog))
+* Adium supports it since at least October 2013 (see [here](https://trac.adium.im/wiki/AdiumVersionHistory))
+* Miranda supports it (see [here](http://miranda-im.de/mediawiki/index.php?title=SSL)) but I was not able to find out since which version
+* Gajim supports it since around November 2013 (see [here](https://python-nbxmpp.gajim.org/ticket/8))
+* Psi seems to support it, but I could not find out any specifics except some problems related to TLS 1.2 from back in January 2014
+* mcabber seems to support it, but the situation is the same as with Psi
+* Empath .. no damn idea. The documentation is incredibly bad. The only thing that includes hints that TLS 1.2 is supported is from a [blog](https://blog.thijsalkema.de/me/blog//blog/2013/09/02/the-state-of-tls-on-xmpp-3/)
 
 One of the uglier default settings Prosody has is the default storage for
 passwords - in plain text on the hard disk. Ehrm. No. Plain (See what I did
@@ -48,39 +56,48 @@ Let's take a quick look at the state of support for SCRAM-SHA1 in popular client
 So generally speaking it's widely supported with the more popular clients
 
 What are the downsides of switching to hashed passwords? The aforementioned
-article goes into detail about that: <blockquote> Once hashed, there is no way
-to go back to plain storage without resetting all users'
-passwords.</blockquote>
+article goes into detail about that:
+
+* Once hashed, there is no way to go back to plain storage without
+resetting all users' passwords.
 
 I see no point in going back to plaintext storage. After all, there are only
 reasons to switch away **to** hashed passwords, not back **from** hashed
 passwords. But in case we, for some reason, would want to go back, then that's
 an inconvenience we would have to live with.
 
-<blockquote> There is currently no standard way to migrate hashed passwords
-between different XMPP server software. This is being worked on.</blockquote>
+* There is currently no standard way to migrate hashed passwords
+between different XMPP server software. This is being worked on.
 
 Pretty much the same as above applies. Prosody successfully fills our needs,
 thus there is no need to switch to something else. But, again as above, if we
 actually wanted to switch then we would have to live with that.
 
-<blockquote> For clients that do not support the new SCRAM-SHA-1 mechanism
-(most at the time of writing), authentication will be slower.</blockquote>
+* For clients that do not support the new SCRAM-SHA-1 mechanism
+(most at the time of writing), authentication will be slower.
 
 I looked at the state of SCRAM-SHA-1-support above, and the situation has
 apparently improved drastically over the last years. So this problem will
 mostly not be one.
 
-<blockquote> DIGEST-MD5 is not compatible with hashed password storage, and
-will not work, and older clients might complain about that.</blockquote>
+* DIGEST-MD5 is not compatible with hashed password storage, and
+will not work, and older clients might complain about that.
 
 So be it. The term 'older clients' here means 'clients that have not been
 updated in at least three years'. And that brings a whole set of problems by
 itself.
 
-<blockquote>Clients that do not yet support SCRAM-SHA-1 will only be able to use the PLAIN mechanism to authenticate, which is insecure if used without TLS (and completely trusted certificates).</blockquote>
+* Clients that do not yet support SCRAM-SHA-1 will only be able to use the
+PLAIN mechanism to authenticate, which is insecure if used without TLS (and
+completely trusted certificates).
 
-The PLAIN mechanism doesn't work with hashed passwords. So clients that do not support 
+And since there is nothing PLAIN left those clients will simply fail. But
+again, this would only hit really old clients who should not be used anymore
+anyway.
 
+I am not an expert on the subject of cryptography and I don't have overwhelming
+experience with running an XMPP-server for more than myself and some friends so
+only time will show if the things I stated are really as true as I - and other
+people - say they are.
 
 
