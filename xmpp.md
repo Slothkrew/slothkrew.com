@@ -76,6 +76,16 @@ biggest no-no's ever. We don't want to land
 some underground forum. Because of that we use the storage-backend
 'internal_hashed'.
 
+We log. With the following configuration:
+
+<blockquote>log = {
+	error = "/var/log/prosody/prosody.err";
+}</blockquote>
+
+If, for some reason, we need more information (perfect example: Debugging
+purposes) and thus have to increase the loglevel temporarily, we will inform
+you before we do so.
+
 We highly recommend that you make use of
 [OTR](https://en.wikipedia.org/wiki/Off-the-Record_Messaging) which provides
 you with encryption, authentication, deniability and PFS. Luckily it is already
