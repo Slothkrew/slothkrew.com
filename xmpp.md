@@ -63,7 +63,8 @@ there is the potential of servers not being able to communicate with ours but
 it doesn't outweigh the definite security gain everybody gets out of it.
 
 The SHA-1-fingerprint of the certificate is:
-<blockquote>0A:A0:02:B9:83:FB:35:A6:23:81:6E:AC:54:23:CD:60:FE:D2:96:3B</blockquote>
+
+>0A:A0:02:B9:83:FB:35:A6:23:81:6E:AC:54:23:CD:60:FE:D2:96:3B
 
 In addition to mandatory encryption we switched away from Prosody's default
 settings but instead implemented the recommendations of the
@@ -76,11 +77,9 @@ biggest no-no's ever. We don't want to land
 some underground forum. Because of that we use the storage-backend
 'internal_hashed'.
 
-We log. With the following configuration:
-
-<blockquote>log = {
-	error = "/var/log/prosody/prosody.err";
-}</blockquote>
+We log. But nothing more than necessary, that means we only log messages of
+classification 'error' or higher. When you talk with whom is none of our
+concern.
 
 If, for some reason, we need more information (perfect example: Debugging
 purposes) and thus have to increase the loglevel temporarily, we will inform
