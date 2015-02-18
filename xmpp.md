@@ -100,6 +100,15 @@ fully encrypted. So there won't be any violation of your privacy.) and we are
 in the process of implementing encrypted backups to at least one remote
 destination.
 
+Plans for the future
+----
+There are some things that we potentially like to improve in order to improve your stay here. This includes but is not limited to:
+
+* DNSSEC for slothkrew.com (That would require running our own nameservers and dealing with Godaddy's stupid way of handling zone transfers)
+* Web registration (That would require tying together the proper module and nginx to make it secure)
+
+We can't give you an ETA on this tough. We are sloths after all.
+
 Questions?
 ----
 If there is something on your mind or you need help something feel free to
