@@ -17,6 +17,9 @@ it for you.
 
 Server information
 ----
+* Address / domain: **slothkrew.com**
+* Ports: **5222** for **c2s** and **5269** for **s2s**
+* Encryption is **mandatory**
 
 The address for the MUC-service is **conference.slothkrew.com**, there is a
 precreated room that serves as our **lounge** and is thus named so. Of course
