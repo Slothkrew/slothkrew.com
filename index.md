@@ -6,7 +6,7 @@ Welcome to the Slothkrew website. We're a group of technology and security
 enthusiasts from around the world who enjoy talking about information security,
 code, technology in general and pretty much any silly thing that is out there.
 
-We can usually found loitering in **#slothkrew#** on **Freenode** where we
+We can usually found loitering in **#slothkrew** on **Freenode** where we
 bathe in the joys of procrastrination. Feel free to drop by, we don't bite (To
 be fully honest with you: We might try at times, but until we reach your arm we
 have already forgotten what we wanted to do with it in the first place.)
