@@ -72,9 +72,7 @@ The SHA-1-fingerprint of the certificate is:
 In addition to mandatory encryption we switched away from Prosody's default
 settings but instead implemented the recommendations of the
 [BetterCrypto](https://bettercrypto.org)-project in order to further increase
-connection security. We went even further and made TLS 1.2 mandatory, nothing
-else is supported. For the reasons of this please take a look at one of our
-[blog posts](LINKTOBLOGPOSTGOESHERE).
+connection security. 
 
 Prosody's default is to store passwords in plaintext, which is one of the
 biggest no-no's ever. We don't want to land
