@@ -73,7 +73,12 @@ The SHA-1-fingerprint of the certificate is:
 In addition to mandatory encryption we switched away from Prosody's default
 settings but instead implemented the recommendations of the
 [BetterCrypto](https://bettercrypto.org)-project in order to further increase
-connection security. 
+connection security. The only that's currently not implemented is
+[PFS](https://en.wikipedia.org/wiki/Forward_secrecy) due to a problem with
+lua-sec and openssl. That means that, for the moment, every communication can
+be considered compromised **if** an attacker can obtain the private key. We are
+working on this and while change this paragraph accordingly if anything
+changes.
 
 Prosody's default is to store passwords in plaintext, which is one of the
 biggest no-no's ever. We don't want to land
