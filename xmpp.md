@@ -11,9 +11,10 @@ Registration
 ----
 Registration is free (free as in beer as well as free as in libre - only free
 software is used to provide this service) and can be done directly from within
-your prefered client. If you, for some reason, can't register with your
-client-software: Shoot us a mail at **sloths@slothkrew.com** and we will create
-it for you.
+your prefered client or via webinterface which you can reach
+[here](https://slothkrew.com/register). If you, for some reason, can't register
+with: Shoot us a mail at **sloths@slothkrew.com** and we will create it for
+you.
 
 Server information
 ----
