@@ -112,7 +112,6 @@ Plans for the future
 There are some things that we potentially like to improve in order to improve your stay here. This includes but is not limited to:
 
 * DNSSEC for slothkrew.com (That would require running our own nameservers and dealing with Godaddy's stupid way of handling zone transfers)
-* Web registration (That would require tying together the proper module and nginx to make it secure)
 
 We can't give you an ETA on this tough. We are sloths after all.
 
