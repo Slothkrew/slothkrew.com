@@ -11,9 +11,10 @@ Registration
 ----
 Registration is free (free as in beer as well as free as in libre - only free
 software is used to provide this service) and can be done directly from within
-your prefered client. If you, for some reason, can't register with your
-client-software: Shoot us a mail at **sloths@slothkrew.com** and we will create
-it for you.
+your prefered client or via webinterface which you can reach
+[here](https://slothkrew.com:5281/register_web). If you, for some reason, can't register
+with: Shoot us a mail at **sloths@slothkrew.com** and we will create it for
+you.
 
 Server information
 ----
@@ -69,10 +70,19 @@ The SHA-1-fingerprint of the certificate is:
 
 >0A:A0:02:B9:83:FB:35:A6:23:81:6E:AC:54:23:CD:60:FE:D2:96:3B
 
+The SHA-512-fingerprint of the certificate is:
+
+>10:7A:0F:27:64:C7:39:21:86:F2:F3:C6:4F:47:C0:ED:EF:69:EA:17:53:39:12:FB:E0:34:
+>13:A7:B3:48:35:E0:54:5A:77:D5:67:D8:96:43:2B:5C:BD:FE:A3:77:DA:FB:72:73:2E:8C:
+>D5:45:BC:05:A0:BC:37:42:07:24:A5:1C
+
+
 In addition to mandatory encryption we switched away from Prosody's default
 settings but instead implemented the recommendations of the
 [BetterCrypto](https://bettercrypto.org)-project in order to further increase
-connection security. 
+connection security, including some more tweaks for even better results. Feel
+free to run our server through the test at [xmpp.net](https://xmpp.net/) if you
+enjoy looking at lots of green.
 
 Prosody's default is to store passwords in plaintext, which is one of the
 biggest no-no's ever. We don't want to land
@@ -106,7 +116,6 @@ Plans for the future
 There are some things that we potentially like to improve in order to improve your stay here. This includes but is not limited to:
 
 * DNSSEC for slothkrew.com (That would require running our own nameservers and dealing with Godaddy's stupid way of handling zone transfers)
-* Web registration (That would require tying together the proper module and nginx to make it secure)
 
 We can't give you an ETA on this tough. We are sloths after all.
 
