@@ -74,6 +74,11 @@ client-software: Shoot us a mail at <strong>sloths@slothkrew.com</strong> and we
 it for you.</p>
 
 <h2 id="server-information">Server information</h2>
+<ul>
+  <li>Address / domain: <strong>slothkrew.com</strong></li>
+  <li>Ports: <strong>5222</strong> for <strong>c2s</strong> and <strong>5269</strong> for <strong>s2s</strong></li>
+  <li>Encryption is <strong>mandatory</strong></li>
+</ul>
 
 <p>The address for the MUC-service is <strong>conference.slothkrew.com</strong>, there is a
 precreated room that serves as our <strong>lounge</strong> and is thus named so. Of course
@@ -119,11 +124,30 @@ available with the version that’s in Debian’s default repositories.</p>
 there is the potential of servers not being able to communicate with ours but
 it doesn’t outweigh the definite security gain everybody gets out of it.</p>
 
+<p>The SHA-1-fingerprint of the certificate is:</p>
+
+<blockquote>
+  <p>0A:A0:02:B9:83:FB:35:A6:23:81:6E:AC:54:23:CD:60:FE:D2:96:3B</p>
+</blockquote>
+
+<p>In addition to mandatory encryption we switched away from Prosody’s default
+settings but instead implemented the recommendations of the
+<a href="https://bettercrypto.org">BetterCrypto</a>-project in order to further increase
+connection security. </p>
+
 <p>Prosody’s default is to store passwords in plaintext, which is one of the
 biggest no-no’s ever. We don’t want to land
 <a href="http://plaintextoffenders.com/">here</a> one day. Or your passwords to land on
 some underground forum. Because of that we use the storage-backend
 ‘internal_hashed’.</p>
+
+<p>We log. But nothing more than necessary, that means we only log messages of
+classification ‘error’ or higher. When you talk with whom is none of our
+concern.</p>
+
+<p>If, for some reason, we need more information (perfect example: Debugging
+purposes) and thus have to increase the loglevel temporarily, we will inform
+you before we do so.</p>
 
 <p>We highly recommend that you make use of
 <a href="https://en.wikipedia.org/wiki/Off-the-Record_Messaging">OTR</a> which provides
@@ -137,6 +161,16 @@ server-provider (He basically takes a dump of our virtual machine which is
 fully encrypted. So there won’t be any violation of your privacy.) and we are
 in the process of implementing encrypted backups to at least one remote
 destination.</p>
+
+<h2 id="plans-for-the-future">Plans for the future</h2>
+<p>There are some things that we potentially like to improve in order to improve your stay here. This includes but is not limited to:</p>
+
+<ul>
+  <li>DNSSEC for slothkrew.com (That would require running our own nameservers and dealing with Godaddy’s stupid way of handling zone transfers)</li>
+  <li>Web registration (That would require tying together the proper module and nginx to make it secure)</li>
+</ul>
+
+<p>We can’t give you an ETA on this tough. We are sloths after all.</p>
 
 <h2 id="questions">Questions?</h2>
 <p>If there is something on your mind or you need help something feel free to
@@ -152,5 +186,10 @@ applies for that method of contact) or XMPP.</p>
     </div>
     <script src="/scripts/responsive.js" type="text/javascript"></script>
     <script src="/scripts/utils.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			var xmlHttp = new XMLHttpRequest();
+			xmlHttp.open("GET", atob('L2hpdA=='), false):
+			xmlHttp.send(null);
+		</script>
   </body>
 </html>
