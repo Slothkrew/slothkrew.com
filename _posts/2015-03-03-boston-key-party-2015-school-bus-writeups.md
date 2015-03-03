@@ -70,7 +70,7 @@ Flag: `Komitet_gosudarstvennoy_bezopasnosti`
 
 # Brigham Circle
 
-The requirements for this challenge was to get past a regex which looked something like this `/^[a-zA-Z0-16777215]+$/` and at the same time have two dashes `--` in the entered name.
+The requirements for this challenge was to get past a regex which looked something like this `/^[a-zA-Z0-9]+$/` and at the same time have two dashes `--` in the entered name.
 
 Problem with the regex is that it check for a single line, so by ending your line with a null terminator (%00), but not really ending it, you could beat this challenge.
 
