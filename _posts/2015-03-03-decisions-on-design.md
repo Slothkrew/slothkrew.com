@@ -102,6 +102,8 @@ client-support.
 
 Let's take a quick look at the state of support for SCRAM-SHA1 in popular clients:
 
+* Pidgin supports it since November 2013 (see [here](https://developer.pidgin.im/wiki/FullChangeLog) - I am somewhat doubting that though. I'm fairly certain that support has been available for a lot longer, but I could not find anything on that.)
+* Adium supports it since March 2010 (see [here](https://pidgin.im/pipermail/commits/2010-March/016759.html))
 * Miranda supports it since December 2010 (see [here](https://code.google.com/p/miranda/source/list?num=25&start=13218))
 * Gajim supports it since February 2010 (see [here](https://trac.gajim.org/changeset/2593c6a02d88))
 * Psi supports it since February 2013 (see [here](https://github.com/tfar/psi-soc2010/commits/sasl-scram) and [here](https://github.com/tfar/iris-gsoc2010/commits/sasl-scram))
@@ -109,8 +111,7 @@ Let's take a quick look at the state of support for SCRAM-SHA1 in popular client
 * Empathy **apparently** supports it - but it was again impossible to find proof, all I could find was a [mention](https://support.process-one.net/browse/EJAB-1196) in ejabberd's bugtracker and a [logfile](http://bokomoko.de/~rd/telepathy/All-05-10-12_23-42-27.log)
 * ChatSecure supports it since March 2014 (see [here](https://github.com/robbiehanson/XMPPFramework/commit/6a6c326314c46e2f72b847204142e7fe8af74079))
 
-So generally speaking it's widely supported with the more popular clients
-
+So generally speaking it's widely supported with the more popular clients.
 What are the downsides of switching to hashed passwords? The aforementioned
 article goes into detail about that:
 
@@ -151,8 +152,10 @@ And since there is nothing PLAIN left those clients will simply fail. But
 again, this would only hit really old clients who should not be used anymore
 anyway.
 
-I am not an expert on the subject of cryptography and I don't have overwhelming
-experience with running an XMPP-server for more than myself and some friends so
-only time will show if the things I stated are really as true as I - and other
-people - say they are. If you experience any problems with our server please
-let us know. We like to learn.
+Judging by the facts (or at least: the things that documentation states as
+facts) we should be relatively good with our setup, there should not be too
+many problems. I am not an expert on the subject of cryptography and I don't
+have overwhelming experience with running an XMPP-server for more than myself
+and some friends so only time will show if the things I stated are really as
+true as I - and other people - say they are. If you experience any problems
+with our server please let us know. We like to learn.
