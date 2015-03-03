@@ -133,6 +133,337 @@
   </div>
 </div>
 
+<hr />
+
+<p><br /></p>
+
+<div class="content" id="home">
+  <div id="sidebar-button">
+    <img src="/images/sidebar-button.png" />
+  </div>
+  <div id="post-info">
+    
+    <div id="cover-photo-container">
+      <img id="cover-photo" src="/images/punchcard.png" />
+    </div>
+    
+    <div id="info-container">
+      <h1 id="title">BKP 2015: Haymarket Writeup</h1>
+      <span id="date">01 Mar 2015</span>
+    </div>
+  </div>
+
+  <div class="post">
+    <blockquote>
+  <p>Monty Hall wrote a script of how he was supposed to run one of his game shows for his trusty accounting computer some time ago, but hes not really sure what the punch cards mean any more. I mean, that was a while ago. Only, hes sure his key is hidden somewhere in these punch-cards, if he could figure out how to run them… : 150</p>
+</blockquote>
+
+<p>The download for this challenge was a zip file containing 32 .png files. Each png file was a picture of a punch card with various holes punched. The files were numbered, and apart from the placement of the punched holes, identical.</p>
+
+<p>This made it reasonably simple to write a little ruby script with the RMagick gem to go through each card and read off the punched holes.</p>
+
+<p>As it turns out, the generator used to create the images for the challenge was http://www.kloth.net/services/cardpunch.php</p>
+
+<p>Assuming (correctly) that the setting used was the IBM-029 encoding, we struck upon the idea to just put in the string ABCD…XYZ. Reading the punched holes from the resulting card, we can build up a map of holes to letters.</p>
+
+<p>Then it’s just a matter of reading through all of the cards with our alphabet map in mind, and constructing the resultant string.</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="nb">require</span> <span class="s1">&#39;RMagick&#39;</span>
+
+<span class="k">def</span> <span class="nf">get_card_number</span><span class="p">(</span><span class="n">card_name</span><span class="p">)</span>
+  <span class="n">card_name</span> <span class="o">=</span> <span class="n">card_name</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;cards/L&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+  <span class="n">card_name</span> <span class="o">=</span> <span class="n">card_name</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+  <span class="n">card_name</span><span class="o">.</span><span class="n">to_i</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">read_card</span><span class="p">(</span><span class="n">card_file</span><span class="p">)</span>
+  <span class="n">image</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">card_file</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="vi">@start_x</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="vi">@start_y</span>
+  <span class="n">cols</span> <span class="o">=</span> <span class="o">[]</span>
+  <span class="vi">@cols_per_card</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="vi">@start_y</span>
+    <span class="vi">@rows_per_col</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+      <span class="n">colour</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">pixel_color</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">is_punched?</span><span class="p">(</span><span class="n">colour</span><span class="p">)</span>
+        <span class="n">col</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;1&quot;</span>
+      <span class="k">else</span>
+        <span class="n">col</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;0&quot;</span>
+      <span class="k">end</span>
+      <span class="n">y</span> <span class="o">+=</span> <span class="vi">@row_inc</span>
+    <span class="k">end</span>
+    <span class="n">x</span> <span class="o">+=</span> <span class="vi">@col_inc</span>
+
+    <span class="nb">print</span> <span class="vi">@sequences</span><span class="o">[</span><span class="n">col</span><span class="o">]</span> <span class="o">||</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">cols</span> <span class="o">&lt;&lt;</span> <span class="n">col</span>
+  <span class="k">end</span>
+  <span class="n">cols</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">is_punched?</span><span class="p">(</span><span class="n">pixel</span><span class="p">)</span>
+  <span class="n">pixel</span><span class="o">.</span><span class="n">red</span> <span class="o">&lt;</span> <span class="mi">6000</span> <span class="o">&amp;&amp;</span> <span class="n">pixel</span><span class="o">.</span><span class="n">green</span> <span class="o">&lt;</span> <span class="mi">6000</span> <span class="o">&amp;&amp;</span> <span class="n">pixel</span><span class="o">.</span><span class="n">blue</span> <span class="o">&lt;</span> <span class="mi">6000</span>
+<span class="k">end</span>
+
+<span class="vi">@start_y</span>       <span class="o">=</span> <span class="mi">20</span>
+<span class="vi">@start_x</span>       <span class="o">=</span> <span class="mi">15</span>
+<span class="vi">@row_inc</span>       <span class="o">=</span> <span class="mi">20</span>
+<span class="vi">@col_inc</span>       <span class="o">=</span> <span class="mi">7</span>
+<span class="vi">@cols_per_card</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="vi">@rows_per_col</span>  <span class="o">=</span> <span class="mi">12</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="no">Dir</span><span class="o">[</span><span class="s2">&quot;cards/*&quot;</span><span class="o">]</span>
+
+<span class="n">sorted_files</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">sort</span> <span class="k">do</span> <span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">|</span>
+  <span class="n">a</span> <span class="o">=</span> <span class="n">get_card_number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+  <span class="n">b</span> <span class="o">=</span> <span class="n">get_card_number</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+  <span class="n">a</span> <span class="o">&lt;=&gt;</span> <span class="n">b</span>
+<span class="k">end</span>
+
+<span class="vi">@sequences</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">alphabet</span> <span class="o">=</span> <span class="n">read_card</span><span class="p">(</span><span class="s2">&quot;alphabet.png&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="o">.</span><span class="n">.</span><span class="s2">&quot;Z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">each_with_index</span> <span class="k">do</span> <span class="o">|</span><span class="n">letter</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
+  <span class="vi">@sequences</span><span class="o">[</span><span class="n">alphabet</span><span class="o">[</span><span class="n">index</span><span class="o">]]</span> <span class="o">=</span> <span class="n">letter</span>
+<span class="k">end</span>
+
+<span class="n">sorted_files</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+  <span class="n">read_card</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="k">end</span></code></pre></div>
+
+<p>And the output is:</p>
+
+<blockquote>
+  <p>IDENTIFICATION DIVISION  PROGRAM ID  LETS MAKE A DEAL  AUTHOR   MONTE HALPARIN  DATA DIVISION  WORKING STORAGE SECTION        DOORCHOICES         GOODDOOR        PIC           FIRSTCHOICE       PIC           OPENDOOR        PIC           CHANGEDOOR        PIC        CURRENTDATE         CURRENTYEAR     PIC                CURRENTMONTH    PIC            CURRENTDAY      PIC           DAYOFYEAR          CURRENTMONTH FILLER          PIC              YEARDAY           PIC           CURRENTTIME         CURRENTHOUR     PIC                CURRENTMINUTE   PIC            CURRENTTENS     PIC             CURRENTONES     PIC           FILLER          PIC      PROCEDURE DIVISION  DISPLAY  MH  WELCOME TO LETS MAKE A   DEAL   DISPLAY  MH  THERE ARE THREE DOORS  ONLY ONE WITH THE   KEY   ACCEPT CURRENTTIME FROM TIME  IF CURRENTONES        SET   GOODDOOR TO   ELSE    IF CURRENTONES           SET GOODDOOR TO        ELSE       SET GOODDOOR TO      END IF END IF DISPLAY  MH    YOU MAY ONLY OPEN ONE DOOR  WHICH DOOR    IF CURRENTTENS       OR CURRENTTENS        SET FIRSTCHOICE TO    IF CURRENTTENS       OR CURRENTTENS        SET FIRSTCHOICE TO    IF CURRENTTENS       OR CURRENTTENS        SET FIRSTCHOICE TO    DISPLAY    PLAYER  I PICK DOOR   FIRSTCHOICE     IF FIRSTCHOICE     GOODDOOR    DISPLAY  MH  THAT IS AN INTERESTING CHOICE OF   DOOR      IF CURRENTTENS  OR   OR CURRENTTENS           SET   OPENDOOR TO      END IF    IF CURRENTTENS     OR CURRENTTENS             SET OPENDOOR TO      END IF    IF CURRENTTENS     O  OR   CURRENTTENS           SET OPENDOOR TO      END IF    DISPLAY    MH  LET ME GIVE YOU A HINT      DISPLAY  MONTY HALL OPENS   DOOR   OPENDOOR    DISPLAY  A GOAT RUSHES OUT WITH NO KEY        DISPLAY  MH  WOULD YOU LIKE TO CHANGE YOUR D GOOR CHOICE        DISPLAY  PLAYER  YES  MY LOGIC MINOR IN COLLEGE HAS A USE    GOOR     IF CURRENTTENS     OR CURRENTTENS           SET CHANGEDOOR   TO      END IF    IF CURRENTTENS     OR CURRENTTENS             SET CHANGEDOOR TO      END IF    IF CURRENTTENS     OR   CURRENTTENS           SET CHANGEDOOR TO      END IF    DISPLAY    PLAYER  I WILL CHOOSE DOOR   CHANGEDOOR   INSTEAD   ELSE      SET CHANGEDOOR TO FIRSTCHOICE  IF CHANGEDOOR   GOODDOOR      DISPLAY  MH  CONGRASETULATIONS  YOU FOUND A KEY      DISPLAY    MH  THE KEY IS      DISPLAY  KEY   SETALEXTREBEKISASOCIALENGINEER   ELSE    DISPLAY  MONTY HALL   OPENS THE DOOR  A GOAT JUMPS OUT      DISPLAY  MH  THIS IS   THE INCORRECT DOOR      DISPLAY  THE GOAT EATS YOUR PUNCH   CARDS  START OVER    STOP RUN</p>
+</blockquote>
+
+<p>It’s not perfect because we didn’t take into account new lines or really anything that isn’t A through Z, and because we treated everything else as a space because whatever, man.</p>
+
+<p>The relevant snippet of text from the output is “DISPLAY  KEY   SETALEXTREBEKISASOCIALENGINEER”, and the key is “ALEXTREBEKISASOCIALENGINEER”</p>
+
+<p>This looks like a BASIC program, so it might be fun to actually compile and run some time.</p>
+
+  </div>
+  <div class="colophon">
+    <p>
+      <span id="pub-date">Published on 01 Mar 2015</span> <span class="separator">&bull;</span>
+      
+      <span>by jsrn</span>
+      
+    </p>
+  </div>
+
+  <div class="post">
+    Like what you see? Check out <a href="/archive.html">the Archive</a>.
+  </div>
+</div>
+
+<hr />
+
+<p><br /></p>
+
+<div class="content" id="home">
+  <div id="sidebar-button">
+    <img src="/images/sidebar-button.png" />
+  </div>
+  <div id="post-info">
+    
+    <div id="info-container">
+      <h1 id="title">Decisions on design</h1>
+      <span id="date">18 Feb 2015</span>
+    </div>
+  </div>
+
+  <div class="post">
+    <p>While writing documentation for and setting up our XMPP-server I noticed that
+our configurations was quite restrictive compared to other people’s servers
+that are out there in the wild. The specific points that came to my mind as
+somewhat unusual are:</p>
+
+<ul>
+  <li>Forced encryption, for c2s as well as s2s (That’s admitedly the least unusual) </li>
+  <li>Forced TLS 1.2, nothing ‘weaker’ </li>
+  <li>Forced authentication via SCRAM-SHA1 due to hashed-passwords </li>
+</ul>
+
+<p>Yes, we are aware that we are locking out some people by being that
+restrictive. But how many people / clients / operating systems we are actually
+locking out? Definitely Windows XP, but we don’t think that we cater towards an
+audience that relies on Windows XP as their daily driver. Let’s take a look at
+the client-support for our settings as well as the state of
+serverside-encryption out there on the Internet!  To measure the availability
+of encryption I run the test on <a href="https://xmpp.net">xmpp.net</a> on several of the
+bigger (mostly) European XMPP-servers. While this is of course not
+scientifically valid it gives a overview over the general situation.</p>
+
+<ul>
+  <li>draugr.de (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A-) </li>
+  <li>dukgo.com (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A) </li>
+  <li>is-a-furry.org (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A) </li>
+  <li>jabber.ccc.de (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A) </li>
+  <li>jabber.org (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A) </li>
+  <li>jabber.no (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A-) </li>
+  <li>jabber.se (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: B)</li>
+  <li>is-the-shit.com (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A)</li>
+  <li>mail.de (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A)</li>
+  <li>adium.ine (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A-)</li>
+  <li>hot-chilli.eu (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A)</li>
+  <li>jabber-hosting.de (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A)</li>
+  <li>jabber.cz (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: B)</li>
+  <li>linuxlovers.at (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A-)</li>
+  <li>neko.im (c2s: <strong>Yes</strong>, s2s: <strong>Yes</strong>, grade: A)</li>
+</ul>
+
+<p>Overall not the worst results, and glancing over xmpp.net’s
+<a href="https://xmpp.net/directory.php">list</a> of public XMPP servers the
+crypto-picture does not look that horrible. Yes, some use ugly things like RC4
+(If any of the administrators using RC4 reads this: You are going to stop doing
+so. Right now.). Yes, very few enforce encryption. But the general support
+seems there. So our server will be able to communicate with much of the others
+out there, that means enforcing s2s-encryption will mostly not cause any
+issues.</p>
+
+<p>If issues do actually pop up there are two possibilities. There is a module for
+Prosody that allows administrators to disable encryption on a per-host-base. We
+could do that. But most likely, as harsh as it may sound, we would not do that.
+But rather advise talking with the other server’s administrator. There is
+excellent documentation for properly setting up connection encryption out
+there. StartSSL and CaCert make it incredibly easy to get certificates. So what
+excuse is there really for not doing it?</p>
+
+<p>We decided to go with a simple yet strict rule: TLS 1.2. That’s it. We won’t
+speak anything below that. While it’s perfectly arguable that TLS 1.1 has not
+been broken either we don’t see a point in supporting an older protocolfor no
+benefit. We have 2015, our processors can handle the additional workload.</p>
+
+<p>For server-software there is definitely no problem with that. Prosody, which we
+use, speaks TLS 1.2. One of my private servers runs ejabberd, which speaks TLS
+1.2. Openfire supports TLS 1.2 (for JDK-versions &gt; 1.7). Cisco Jabber, which
+sits in a lot of enterprises (Don’t chat while you are at work folks!),
+supports TLS 1.2. But while we are set here I somehow suspect problems on the
+client-side of things, given the desperate state some of the more popular ones
+are or have been. So, how is the state of support for TLS 1.2 amongst the more
+popular clients?</p>
+
+<ul>
+  <li>Pidgin supports it since around the end of 2013 (see <a href="https://developer.pidgin.im/ticket/15744">here</a>, I can’t seem to find an actual release note)and actually prefers it since October 2014 (see <a href="https://developer.pidgin.im/wiki/ChangeLog">here</a>)</li>
+  <li>Adium supports it since at least October 2013 (see <a href="https://trac.adium.im/wiki/AdiumVersionHistory">here</a>)</li>
+  <li>Miranda supports it (see <a href="http://miranda-im.de/mediawiki/index.php?title=SSL">here</a>) but I was not able to find out since which version</li>
+  <li>Gajim supports it since around November 2013 (see <a href="https://python-nbxmpp.gajim.org/ticket/8">here</a>)</li>
+  <li>Psi seems to support it, but I could not find out any specifics except some problems related to TLS 1.2 from back in January 2014</li>
+  <li>mcabber seems to support it, but the situation is the same as with Psi</li>
+  <li>Empathy .. no damn idea. The documentation is incredibly bad. The only thing that includes hints that TLS 1.2 is supported is a <a href="https://blog.thijsalkema.de/me/blog//blog/2013/09/02/the-state-of-tls-on-xmpp-3/">blog-entry</a></li>
+</ul>
+
+<p>So of all three of the potentially problematic settings I suspect client
+support for TLS 1.2 to be the only thing that could actually come up. And the
+only way of mitigating this would probably be allowing TLS 1.1.</p>
+
+<p>There is a pretty neat description of the differences between TLS 1.1 and TLS
+1.2 in a <a href="http://www.yassl.com/yaSSL/Blog/Entries/2010/10/7_Differences_between_SSL_and_TLS_Protocol_Versions.html">blog entry from
+yaSSL</a>.
+The only thing that is really ugly is the potential applicability of
+CVE-2014-3566 (The common name for this is ‘POODLE’. I hate those names.) for
+certain TLS-implementations.</p>
+
+<p>One of the uglier default settings Prosody has is the default storage for
+passwords - in plain text on the hard disk. Ehrm. No. Plain (See what I did
+there?) and simple ‘No.’. We want at least hashed passwords, and luckily that’s
+easily doable with Prosody. The
+<a href="http://prosody.im/doc/plain_or_hashed">documentation</a> for the module that
+provides support for hashed passwords goes into quite a bit of length in order
+to .. it feels like discouraging you from hashing your passwords, but I assume
+at the time of the writing it was a problematic topic due to the lack of
+client-support.</p>
+
+<p>Let’s take a quick look at the state of support for SCRAM-SHA1 in popular clients:</p>
+
+<ul>
+  <li>Miranda supports it since December 2010 (see <a href="https://code.google.com/p/miranda/source/list?num=25&amp;start=13218">here</a>)</li>
+  <li>Gajim supports it since February 2010 (see <a href="https://trac.gajim.org/changeset/2593c6a02d88">here</a>)</li>
+  <li>Psi supports it since February 2013 (see <a href="https://github.com/tfar/psi-soc2010/commits/sasl-scram">here</a> and <a href="https://github.com/tfar/iris-gsoc2010/commits/sasl-scram">here</a>)</li>
+  <li>mcabber <strong>apparently</strong> supports it - but it was impossible to find proof or a commitlog</li>
+  <li>Empathy <strong>apparently</strong> supports it - but it was again impossible to find proof, all I could find was a <a href="https://support.process-one.net/browse/EJAB-1196">mention</a> in ejabberd’s bugtracker and a <a href="http://bokomoko.de/~rd/telepathy/All-05-10-12_23-42-27.log">logfile</a></li>
+  <li>ChatSecure supports it since March 2014 (see <a href="https://github.com/robbiehanson/XMPPFramework/commit/6a6c326314c46e2f72b847204142e7fe8af74079">here</a>)</li>
+</ul>
+
+<p>So generally speaking it’s widely supported with the more popular clients</p>
+
+<p>What are the downsides of switching to hashed passwords? The aforementioned
+article goes into detail about that:</p>
+
+<ul>
+  <li>Once hashed, there is no way to go back to plain storage without
+resetting all users’ passwords.</li>
+</ul>
+
+<p>I see no point in going back to plaintext storage. After all, there are only
+reasons to switch away <strong>to</strong> hashed passwords, not back <strong>from</strong> hashed
+passwords. But in case we, for some reason, would want to go back, then that’s
+an inconvenience we would have to live with.</p>
+
+<ul>
+  <li>There is currently no standard way to migrate hashed passwords
+between different XMPP server software. This is being worked on.</li>
+</ul>
+
+<p>Pretty much the same as above applies. Prosody successfully fills our needs,
+thus there is no need to switch to something else. But, again as above, if we
+actually wanted to switch then we would have to live with that.</p>
+
+<ul>
+  <li>For clients that do not support the new SCRAM-SHA-1 mechanism
+(most at the time of writing), authentication will be slower.</li>
+</ul>
+
+<p>I looked at the state of SCRAM-SHA-1-support above, and the situation has
+apparently improved drastically over the last years. So this problem will
+mostly not be one.</p>
+
+<ul>
+  <li>DIGEST-MD5 is not compatible with hashed password storage, and
+will not work, and older clients might complain about that.</li>
+</ul>
+
+<p>So be it. The term ‘older clients’ here means ‘clients that have not been
+updated in at least three years’. And that brings a whole set of problems by
+itself.</p>
+
+<ul>
+  <li>Clients that do not yet support SCRAM-SHA-1 will only be able to use the
+PLAIN mechanism to authenticate, which is insecure if used without TLS (and
+completely trusted certificates).</li>
+</ul>
+
+<p>And since there is nothing PLAIN left those clients will simply fail. But
+again, this would only hit really old clients who should not be used anymore
+anyway.</p>
+
+<p>I am not an expert on the subject of cryptography and I don’t have overwhelming
+experience with running an XMPP-server for more than myself and some friends so
+only time will show if the things I stated are really as true as I - and other
+people - say they are. If you experience any problems with our server please
+let us know. We like to learn.</p>
+
+  </div>
+  <div class="colophon">
+    <p>
+      <span id="pub-date">Published on 18 Feb 2015</span> <span class="separator">&bull;</span>
+      
+      <span>by dot|not</span>
+      
+    </p>
+  </div>
+
+  <div class="post">
+    Like what you see? Check out <a href="/archive.html">the Archive</a>.
+  </div>
+</div>
+
 
   </div>
 </div>
