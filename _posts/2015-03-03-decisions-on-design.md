@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Decisions on design"
-date:   2015-02-18 22:43:23
+date:   2015-03-03 13:07:34
 categories: misc
 author: dot|not
 ---
