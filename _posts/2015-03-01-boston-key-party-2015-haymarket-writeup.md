@@ -2,7 +2,7 @@
 layout: post
 title:  "BKP 2015: Haymarket Writeup"
 date:   2015-03-01
-cover: cover.jpg
+cover: punchcard.png
 categories: ctfwriteups
 author: jsrn
 ---
