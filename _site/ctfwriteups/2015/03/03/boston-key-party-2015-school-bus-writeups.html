@@ -3,7 +3,7 @@
   <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Slothkrew - Categories</title>
+      <title>Slothkrew - BKP 2015: Schoolbus Writeup</title>
       <meta name="viewport" content="width=device-width">
 
       <!-- syntax highlighting CSS -->
@@ -55,89 +55,69 @@
     <img src="/images/sidebar-button.png">
   </div>
   <div id="post-info">
+    
     <div id="info-container">
-      <h1 id="title">Categories</h1>
+      <h1 id="title">BKP 2015: Schoolbus Writeup</h1>
+      <span id="date">03 Mar 2015</span>
     </div>
   </div>
 
   <div class="post">
-    <ul class="tag_box inline">
-  
-  
+    <p>This writeup is gonna cover a bunch of challenges from the School Bus category.</p>
 
+<h1 id="symphony">Symphony</h1>
 
-  
-     
-    	<li><a href="#misc-ref">
-    		misc <span>2</span>
-    	</a></li>
-     
-    	<li><a href="#ctfwriteups-ref">
-    		ctfwriteups <span>2</span>
-    	</a></li>
-    
-  
+<p>We had to input a value which would return true from the php function <code>is_numeric</code>, is greater than 999, but did not exceed 3 characters.</p>
 
+<p>Luckily, we can write numbers with an exponent in PHP.</p>
 
-</ul>
+<p>Answer: <code>9e9</code></p>
 
-<h2 id="misc-ref">misc</h2>
-<ul>
+<p>Flag: <code>B4SE10_IS_F0R_LOSERS</code></p>
+
+<h1 id="bu-central">BU Central</h1>
+
+<p>The challenge description was <code>The flag is party</code>. Shockingly:</p>
+
+<p>Flag: <code>party</code></p>
+
+<h1 id="northeastern-university">Northeastern University</h1>
+
+<p>This challenge performed an unsafe <code>stringcmp</code> against the GET parameter. Read <a href="http://stackoverflow.com/questions/3333353/string-comparison-using-vs-strcmp">this stackoverflow thread</a> for details.</p>
+
+<p>Flag: <code>Still_better_than_the_d0uble_equals</code></p>
+
+<h1 id="park-street">Park Street</h1>
+
+<p>What is the OpenFlow table modification message type to add a new flow? : 10</p>
+
+<p>We can read the openflow spec <a href="http://archive.openflow.org/documents/openflow-spec-v1.1.0.pdf">here</a>. (pdf)</p>
+
+<pre><code>enum ofp_flow_mod_command {
+  OFPFC_ADD, /* New flow. */
+  OFPFC_MODIFY, /* Modify all matching flows. */
+  OFPFC_MODIFY_STRICT, /* Modify entry strictly matching wildcards and
+  priority. */
+  OFPFC_DELETE, /* Delete all matching flows. */
+  OFPFC_DELETE_STRICT /* Delete entry strictly matching wildcards and
+  priority. */
+};
+</code></pre>
+
+<p>Flag: <code>OFPFC_ADD</code></p>
+
+  </div>
+  <div class="colophon">
+    <p>
+      <span id="pub-date">Published on 03 Mar 2015</span> <span class="separator">&bull;</span>
       
-    
-
-
-  
-    
+      <span>by jsrn</span>
       
-      	
-      	<li>18 Feb, 2015 &gt; <a href="/misc/2015/02/18/desicions-on-design.html">Decisions on design</a></li>
-        
-      
-    
-  
-    
-      
-      	
-      	<li>16 Feb, 2015 &gt; <a href="/misc/2015/02/16/hello-from-slothkrew.html">Hello from Slothkrew!</a></li>
-        
-      
-    
-  
+    </p>
+  </div>
 
-
-
-  </ul>
-
-<h2 id="ctfwriteups-ref">ctfwriteups</h2>
-<ul>
-      
-    
-
-
-  
-    
-      
-      	
-      	<li>03 Mar, 2015 &gt; <a href="/ctfwriteups/2015/03/03/boston-key-party-2015-school-bus-writeups.html">BKP 2015: Schoolbus Writeup</a></li>
-        
-      
-    
-  
-    
-      
-      	
-      	<li>01 Mar, 2015 &gt; <a href="/ctfwriteups/2015/03/01/boston-key-party-2015-haymarket-writeup.html">BKP 2015: Haymarket Writeup</a></li>
-        
-      
-    
-  
-
-
-
-  </ul>
-
-
+  <div class="post">
+    Like what you see? Check out <a href="/archive.html">the Archive</a>.
   </div>
 </div>
 
