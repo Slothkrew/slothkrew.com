@@ -83,17 +83,17 @@ This challenge gave you a list of three random numbers and expected the fourth r
 
 A look at the source code gave us that the function used for making random numbers is mt_rand() which is not safe [if you know the first random number generated](http://www.openwall.com/php_mt_seed/). 
 
-A look at the README file and we soon started crunching numbers to find the seed using php_mt_rand. The command looked like this; `php_mt_seed 123 123 0 16777215  456 456 0 16777215  789 789 0 16777215` where 123, 456 and 789 were the random numbers we were provided in the challenge. 0 and 16777215 are the min and max values used in the mt_rand call in the challenge.
+A look at the README file and we soon started crunching numbers to find the seed using php_mt_seed. The command looked like this; `php_mt_seed 123 123 0 16777215  456 456 0 16777215  789 789 0 16777215` where 123, 456 and 789 were the random numbers we were provided in the challenge. 0 and 16777215 are the min and max values used in the mt_rand call in the challenge.
 
 When php_mt_seed found the seed for the random sequence after a couple of minutes you could run `php -r 'mt_srand(987654321); for ($i = 0; $i < 4; $i++) { echo mt_rand(0, 0xffffff), " "; } echo "\n";'` which then revealed the last random number and we got the flag!
 
 
 # Longwood Medical
 
-This challenge required you to enter both a name and a password. Both fields had to return TRUE when sent as parameters to the ctype_alnum function.
+This challenge required you to enter both a name and a password. Both fields had to return TRUE when sent as parameters to the `ctype_alnum` function.
 
 If that happened to turn out okay a variable would be build with a SQL query looking like this - `select * from user where login = '.login.' and password = '.password.';'`
 
-That query then got executed agains an SQLite database, and if the result was not FALSE or NULL the flag would be returned.
+That query then got executed agains an SQLite database, and if the result was not FALSE and not NULL the flag would be returned.
 
-The solution was simple. They didn't wrap the userinput in qoutes, so providing `login` as the name and `password` as the password (same values as the column names) returned something and the flag got printed to the screen.
+The solution was simple. They didn't wrap the user's input in qoutes, so providing `login` as the name and `password` as the password (same values as the column names) returned something and the flag got printed to the screen.
