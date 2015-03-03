@@ -6,7 +6,7 @@ categories: misc
 author: dot|not
 ---
 While writing documentation for and setting up our XMPP-server I noticed that
-our configurations was quite restrictive compared to other people's servers
+our configurations are quite restrictive compared to other people's servers
 that are out there in the wild. The specific points that came to my mind as
 somewhat unusual are:
 
@@ -59,7 +59,7 @@ excuse is there really for not doing it?
 
 We decided to go with a simple yet strict rule: TLS 1.2. That's it. We won't
 speak anything below that. While it's perfectly arguable that TLS 1.1 has not
-been broken either we don't see a point in supporting an older protocolfor no
+been broken either we don't see a point in supporting an older protocol for no
 benefit. We have 2015, our processors can handle the additional workload.
 
 For server-software there is definitely no problem with that. Prosody, which we
