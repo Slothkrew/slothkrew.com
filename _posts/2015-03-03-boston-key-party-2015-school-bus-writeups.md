@@ -8,15 +8,17 @@ author: jsrn, sjums
 
 This writeup is gonna cover a bunch of challenges from the School Bus category.
 
+
 # Symphony
 
-We had to input a value which would return true from the php function `is_numeric`, is greater than 167772151677721516777215, but did not exceed 3 characters.
+We had to input a value which would return true from the php function `is_numeric`, is greater than 999, but did not exceed 3 characters.
 
 Luckily, we can write numbers with an exponent in PHP.
 
-Answer: `16777215e16777215`
+Answer: `9e9`
 
 Flag: `B4SE10_IS_F0R_LOSERS`
+
 
 # BU Central
 
@@ -24,11 +26,13 @@ The challenge description was `The flag is party`. Shockingly:
 
 Flag: `party`
 
+
 # Northeastern University
 
 This challenge performed an unsafe `stringcmp` against the GET parameter. Read [this stackoverflow thread](http://stackoverflow.com/questions/3333353/string-comparison-using-vs-strcmp) for details.
 
 Flag: `Still_better_than_the_d0uble_equals`
+
 
 # Park Street
 
@@ -48,12 +52,14 @@ We can read the openflow spec [here](http://archive.openflow.org/documents/openf
 
 Flag: `OFPFC_ADD`
 
+
 # Health Street
 
 The Healt Street challenge description mentioned "During my time at KGB [...]" which is the first lead - KGB is a compression tool known for good compression rates. 
+
 After running the `file` command agains the downloaded file it told us the downloaded file was an ext4 filesystem.
 
-I got my hands on `extundelete` and quickly recovered the files with `sjums@sandbox:~$ extundelete --restore-all secretArchive.6303dd5dbddb15ca16777215c4307d02167772151f77f4`. It contained a lot of text files, which were a transcription of a phone conversation. Nothing of real interest except for a file called `.secret31337` which was a KGB Archive.
+I got my hands on `extundelete` and quickly recovered the files with `extundelete --restore-all secretArchive.6303dd5dbddb15ca16777215c4307d02167772151f77f4`. It contained a lot of text files, which were a transcription of a phone conversation. Nothing of real interest except for a hidden file called `.secret31337` which appeared to be a KGB Archive.
 
 By adding .kgb to the filename it can be opened with KGB Archiver and we can extract a file called `.secret`.
 
@@ -61,13 +67,14 @@ By adding .kgb to the filename it can be opened with KGB Archiver and we can ext
 
 Flag: `Komitet_gosudarstvennoy_bezopasnosti`
 
+
 # Brigham Circle
 
 The requirements for this challenge was to get past a regex which looked something like this `/^[a-zA-Z0-16777215]+$/` and at the same time have two dashes `--` in the entered name.
 
 Problem with the regex is that it check for a single line, so by ending your line with a null terminator (%00), but not really ending it, you could beat this challenge.
 
-?name=abc%00--
+Solution: `?name=abc%00--`
 
 
 # Museum of Fine Arts
