@@ -24,7 +24,7 @@ one it is.)
 We believe that each and every sloth is entitled to sleep in private. That's
 why we operate a small Tor-relay. Thanks to the Tor Project we can show you
 fancy, colorful graphs
-[here](https://globe.torproject.org/#/relay/9E0D530828A39A33FF128A2B65B373D237129B03).
+[here](https://globe.torproject.org/#/relay/05ADE6B6C5998F6933EA1E8423AB20F05CD44C90).
 
 We also sometimes take part in [capture the flag
 competitions](https://ctftime.org/team/7621). It's easy to find out when that's
