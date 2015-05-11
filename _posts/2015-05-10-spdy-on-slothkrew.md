@@ -27,12 +27,13 @@ articles about the topic, such as a <a
 href="https://developers.google.com/speed/articles/spdy-for-mobile">study</a>
 by Google (Yes, I know. There is a potential for bias given that the
 researchers work for Google.) that stated that there is a near 25% increase in
-speed for mobile users when SPDY is used. Some of the sloths have already
-enabled SPDY on their servers, so more or less naturally I
+speed for mobile users when SPDY is used.
 
-So in the end it more or less boils down to: Because it's fun. And easy to do.
-And now I can feel good for the rest of the day and can legitimately ignore all
-the stuff I should actually fix. Living the BOFH-life.
+Some of the sloths have already enabled SPDY on their servers, so more or less
+naturally I decided to give it a go - which means that in the end it more or
+less boils down to: Because it's fun. And easy to do.  And now I can feel good
+for the rest of the day and can legitimately ignore all the stuff I should
+actually fix. Living the BOFH-life.
 
 <h3>How</h3>
 It's pretty damn simple to enable SPDY for nginx, the project's <a
