@@ -123,5 +123,6 @@ Questions?
 ----
 If there is something on your mind or you need help something feel free to
 contact us. Via IRC (Given the amount of mentions it gets here on the page it
-should be easy to figure out where we hang around.), shoot us a mail (Same
-applies for that method of contact) or XMPP.
+should be easy to figure out where we hang around.), shoot us a mail to <a
+href="mailto:jabberoperators@slothkrew.com">jabberoperators@slothkrew.com</a>
+or XMPP.
