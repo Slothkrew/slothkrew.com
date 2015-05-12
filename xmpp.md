@@ -90,9 +90,12 @@ biggest no-no's ever. We don't want to land
 some underground forum. Because of that we use the storage-backend
 'internal_hashed'.
 
-We log. But nothing more than necessary, that means we only log messages of
-classification 'error' or higher. When you talk with whom is none of our
-concern.
+We respect your privacy as much as possible, logging only what's necessary:
+
+* XMPP contact list and offline messages (which get deleted after they are delivered)
+* Error-messages of classification 'error' or higher.
+
+That's it. Nothing more. When you talk with whom is none of our concern.
 
 If, for some reason, we need more information (perfect example: Debugging
 purposes) and thus have to increase the loglevel temporarily, we will inform
@@ -107,15 +110,15 @@ there.
 
 In terms of the danger of data loss: There are daily backups done by our
 server-provider (He basically takes a dump of our virtual machine which is
-fully encrypted. So there won't be any violation of your privacy.) and we are
-in the process of implementing encrypted backups to at least one remote
-destination.
+fully encrypted. So there won't be any violation of your privacy.) and hourly
+encrypted backups to a remote location.
 
 Plans for the future
 ----
 There are some things that we potentially like to improve in order to improve your stay here. This includes but is not limited to:
 
-* DNSSEC for slothkrew.com (That would require running our own nameservers and dealing with Godaddy's stupid way of handling zone transfers)
+* DNSSEC for slothkrew.com (That would require running our own nameservers and dealing with Godaddy's stupid way of handling zone transfers - or DNS in general.)
+* Offer connectivity via Tor, that means hosting XMPP as hidden service. This is currently only brainstorming.
 
 We can't give you an ETA on this tough. We are sloths after all.
 
