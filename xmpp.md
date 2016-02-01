@@ -68,14 +68,11 @@ it doesn't outweigh the definite security gain everybody gets out of it.
 
 The SHA-1-fingerprint of the certificate is:
 
->0A:A0:02:B9:83:FB:35:A6:23:81:6E:AC:54:23:CD:60:FE:D2:96:3B
+>a7ebb17d6c2360b3aa6422a029269eba971a79e3
 
-The SHA-512-fingerprint of the certificate is:
+The SHA-256-pin of the certificate is:
 
->10:7A:0F:27:64:C7:39:21:86:F2:F3:C6:4F:47:C0:ED:EF:69:EA:17:53:39:12:FB:E0:34:
->13:A7:B3:48:35:E0:54:5A:77:D5:67:D8:96:43:2B:5C:BD:FE:A3:77:DA:FB:72:73:2E:8C:
->D5:45:BC:05:A0:BC:37:42:07:24:A5:1C
-
+>neZeGaRMHfmLAYh9rCkYgrz/4gGFpH0ncAeVdZuiblw= 
 
 In addition to mandatory encryption we switched away from Prosody's default
 settings but instead implemented the recommendations of the
