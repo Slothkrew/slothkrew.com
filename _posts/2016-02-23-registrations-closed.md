@@ -24,3 +24,5 @@ accounts for legitimate purposes, please let us know. We don't have a problem
 with that, but we'd like to know in order to avoid further confusion. For the
 moment the accounts in question are locked and will be deleted if no one steps
 forward. Thanks for being awesome, constituency!
+
+**Update**: Registrations are open again.
