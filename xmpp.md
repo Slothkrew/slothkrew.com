@@ -59,8 +59,7 @@ to make sure that software stays up-to-date and access to the machine is
 properly restricted.
 
 Prosody is installed directly from the developer's package repository to be
-able to use stronger encryption and IPv6 which is both unfortunately not
-available with the version that's in Debian's default repositories.
+able to use stronger encryption ciphers which aren't available in the standard packages.
 
 We enforce encryption for both c2s- and s2s-connections. Yes, we are aware that
 there is the potential of servers not being able to communicate with ours but
@@ -98,9 +97,11 @@ If, for some reason, we need more information (perfect example: Debugging
 purposes) and thus have to increase the loglevel temporarily, we will inform
 you before we do so.
 
-We highly recommend that you make use of
+We don't just highly recommend that you make use of
 [OTR](https://en.wikipedia.org/wiki/Off-the-Record_Messaging) which provides
-you with encryption, authentication, deniability and PFS. Luckily it is already
+you with encryption, authentication, deniability and PFS - we enforce it
+server-side. Plaintext-messages won't happen on our server. That means that
+offline-messages are impossible, as well as group-chats. Luckily it is already
 part of many popular clients (Such as Adium for OSX or mcabber for BSD/Linux),
 and in case it's not there is most likely a easily configurable plugin out
 there.
