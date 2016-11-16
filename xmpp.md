@@ -9,6 +9,10 @@ horrible things like ICQ. This page contains information about it.
 
 Registration
 ----
+**Please be aware that the REGISTRATION IS CLOSED FOR THE MOMENT (November
+16th, 2016). It will be reopened in the foreseeable future, until the wave of
+spammy registrations is over.**
+
 Registration is free (free as in beer as well as free as in libre - only free
 software is used to provide this service) and can be done directly from within
 your prefered client or via webinterface which you can reach
@@ -21,10 +25,6 @@ Server information
 * Address / domain: **slothkrew.com**
 * Ports: **5222** for **c2s** and **5269** for **s2s**
 * Encryption is **mandatory**
-
-The address for the MUC-service is **conference.slothkrew.com**, there is a
-precreated room that serves as our **lounge** and is thus named so. Of course
-you are free to create your own rooms.
 
 Rules
 ----
@@ -41,9 +41,7 @@ we know that we are putting a certain amount of trust in mankind. (Sloths are
 their biggest enemy.)
 
 Even though we hope that we will never reach that point: We reserve the right
-to bar people out of this server if they act ass-twaty. We keep limited logs
-that will be used for nothing but either trouble-shooting or slapping people
-with their offenses.
+to bar people out of this server if they act ass-twaty. 
 
 Security
 ----
@@ -53,8 +51,8 @@ guarantee for the safety of your data we try to make your stay as comfortable
 and safe as possible.
 
 We did not do any crazy magic to harden the server, we run a pretty much
-vanilla installation of Debian stable (which is Wheezy as of this writing)
-without stuff like grsecurity or a super-fancy-epic-hardened kernel. We jus try
+vanilla installation of Debian stable (which is Jessie as of this writing)
+without stuff like grsecurity or a super-fancy-epic-hardened kernel. We just try
 to make sure that software stays up-to-date and access to the machine is
 properly restricted.
 
@@ -65,13 +63,10 @@ We enforce encryption for both c2s- and s2s-connections. Yes, we are aware that
 there is the potential of servers not being able to communicate with ours but
 it doesn't outweigh the definite security gain everybody gets out of it.
 
-The SHA-1-fingerprint of the certificate is:
+The SHA-256-fingerprint of the certificate is:
 
->a7ebb17d6c2360b3aa6422a029269eba971a79e3
+>3A:36:A1:94:E1:46:70:D0:23:0A:03:8E:2D:C0:D5:3E:F6:A6:8A:EC:41:C6:27:6F:40:58:57:69:7D:87:D9:D3
 
-The SHA-256-pin of the certificate is:
-
->neZeGaRMHfmLAYh9rCkYgrz/4gGFpH0ncAeVdZuiblw= 
 
 In addition to mandatory encryption we switched away from Prosody's default
 settings but instead implemented the recommendations of the
@@ -88,7 +83,7 @@ some underground forum. Because of that we use the storage-backend
 
 We respect your privacy as much as possible, logging only what's necessary:
 
-* XMPP contact list and offline messages (which get deleted after they are delivered)
+* XMPP contact list (referred to as 'roster')
 * Error-messages of classification 'error' or higher.
 
 That's it. Nothing more. When you talk with whom is none of our concern.
@@ -113,7 +108,8 @@ encrypted backups to a remote location.
 
 Plans for the future
 ----
-There are some things that we potentially like to improve in order to improve your stay here. This includes but is not limited to:
+There are some things that we potentially like to improve in order to improve
+your stay here. This includes but is not limited to:
 
 * DNSSEC for slothkrew.com (That would require running our own nameservers and dealing with Godaddy's stupid way of handling zone transfers - or DNS in general.)
 * Offer connectivity via Tor, that means hosting XMPP as hidden service. This is currently only brainstorming.
